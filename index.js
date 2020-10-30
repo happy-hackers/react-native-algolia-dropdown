@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { StyleSheet, TextInput, View, Text, Animated, Dimensions, TouchableOpacity, ScrollView } from 'react-native'
 import algoliasearch from 'algoliasearch/reactnative'
 
@@ -124,7 +125,7 @@ export default class AlgoliaDropdown extends Component {
   getInputStyle () {
     const baseStyles = {
       flex: 1,
-      height: SEARCH_INPUT_HEIGHT,
+      height: SEARCH_INPUT_HEIGHT + 10,
       borderColor: '#E4E4E4',
       borderWidth: 1,
       borderRadius: 10,
@@ -152,22 +153,26 @@ export default class AlgoliaDropdown extends Component {
             style={this.getInputStyle()}
             onFocus={this.handleFocus}
             onChange={this.handleTextChange}
-            placeholder={this.props.placeholder} />
+            placeholder={this.props.placeholder}
+            placeholderTextColor='grey'
+            onSubmitEditing={(e) => this.props.onSubmit(e.nativeEvent.text)}
+          />
+          
           {this.props.sideComponent && this.state.showOverlay === false
             ? React.cloneElement(this.props.sideComponent)
             : null}
-          <TouchableOpacity
-            style={{width: this.state.cancelWidth}}
+          {this.state.showOverlay && <TouchableOpacity
+            // style={{width: this.state.cancelWidth}}
             onPress={this.handleRemoveFocus}>
               <Animated.Text
                 style={{opacity: this.state.cancelOpacity, color: this.props.cancelButtonColor, fontSize: 17, padding: 2}}>
                   {this.props.cancelText}
               </Animated.Text>
-          </TouchableOpacity>
+          </TouchableOpacity>}
         </View>
         <Animated.View style={{height: this.state.resultsHeight, backgroundColor: this.props.resultsContainerBackgroundColor}}>
           {this.state.showOverlay === true
-            ? <ScrollView automaticallyAdjustContentInsets={false} keyboardDismissMode={'on-drag'} keyboardShouldPersistTaps={true}>
+            ? <ScrollView automaticallyAdjustContentInsets={false} keyboardDismissMode={'on-drag'} keyboardShouldPersistTaps='always'>
                 {this.state.results}
                 {this.props.footerHeight ? <View style={{height: this.props.footerHeight}} /> : null}
               </ScrollView>
@@ -193,6 +198,8 @@ AlgoliaDropdown.propTypes = {
     React.PropTypes.arrayOf(React.PropTypes.node),
     React.PropTypes.node,
   ]),
+  placeholder: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 AlgoliaDropdown.defaultProps = {
