@@ -194,9 +194,9 @@ AlgoliaDropdown.propTypes = {
   style: PropTypes.object,
   footerHeight: PropTypes.number,
   sideComponent: PropTypes.element,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]),
   placeholder: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
