@@ -165,15 +165,14 @@ export default class AlgoliaDropdown extends Component {
 
   handleFocus() {
     Animated.timing(this.state.resultsHeight, {
-      toValue:
-        height -
-        (this.props.inputStyle
-          ? this.props.inputStyle.height
-            ? this.props.inputStyle.height + 600
-            : SEARCH_INPUT_HEIGHT
-          : SEARCH_INPUT_HEIGHT),
-      duration: 500,
-      useNativeDriver: false
+      toValue: 500,
+        // height -
+        // (this.props.inputStyle
+        //   ? this.props.inputStyle.height
+        //     ? this.props.inputStyle.height + 10
+        //     : SEARCH_INPUT_HEIGHT + 10
+        //   : SEARCH_INPUT_HEIGHT + 10),
+      duration: 500, useNativeDriver: false
     }).start();
     Animated.sequence([
       Animated.timing(this.state.cancelWidth, { toValue: 63, duration: 200, useNativeDriver: false }),
@@ -188,8 +187,7 @@ export default class AlgoliaDropdown extends Component {
     this.input.clear();
     Animated.timing(this.state.resultsHeight, {
       toValue: 0,
-      duration: 500,
-      useNativeDriver: false
+      duration: 500, useNativeDriver: false
     }).start();
     Animated.sequence([
       Animated.timing(this.state.cancelOpacity, { toValue: 0, duration: 200, useNativeDriver: false }),
@@ -220,7 +218,7 @@ export default class AlgoliaDropdown extends Component {
   render() {
     return (
       <View style={[styles.container, this.props.style]}>
-        <View style={[styles.searchContainer, this.props.inputStyle && this.props.inputStyle.height &&  { height: this.props.inputStyle.height }]}>
+        <View style={styles.searchContainer}>
           <TextInput
             ref={(ref) => (this.input = ref)}
             autoCorrect={false}
