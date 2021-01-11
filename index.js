@@ -11,6 +11,7 @@ import {
   ScrollView
 } from 'react-native';
 import algoliasearch from 'algoliasearch/reactnative';
+import { createNullCache } from '@algolia/cache-common';
 
 const { height, width } = Dimensions.get('window');
 const SEARCH_INPUT_HEIGHT = 30;
@@ -66,7 +67,7 @@ export default class AlgoliaDropdown extends Component {
   constructor(props) {
     super();
     validateChildProps(props.children);
-    this.client = algoliasearch(props.appID, props.apiKey);
+    this.client = algoliasearch(props.appID, props.apiKey, { responsesCache: createNullCache() });
 
     this.state = {
       showOverlay: false,

@@ -21,6 +21,7 @@
   "license": "MIT",
   "homepage": "https://github.com/tylermcginnis/react-native-algolia-dropdown#readme",
   "dependencies": {
+    "@algolia/cache-common": "^4.8.3",
     "algoliasearch": "^3.16.0",
     "prop-types": "^15.7.2"
   }
